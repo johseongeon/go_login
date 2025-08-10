@@ -7,7 +7,7 @@
 ---
 # Database : docker mysql container
 
-docker-compose.yml
+db/docker-compose.yml
 ``` yaml
 version: "3.9"
 
@@ -32,3 +32,16 @@ volumes:
 ```
 You should set root password & external port in docker-compose.yml
 
+and run
+
+```cmd
+cd db
+docker compose up --build
+```
+
+and you should create .env and write
+
+```
+MYSQL_URI="root:{password}@tcp(localhost:{external port})/login?parseTime=true"
+JWT_SECRET="jwtsecretkeyshouldbelongandsecure"
+```
