@@ -1,9 +1,0 @@
-# 환경변수
-.env
-
-# pem 파일 
-cmd/cert.pem
-cmd/key.pem
-
-# local test
-test/

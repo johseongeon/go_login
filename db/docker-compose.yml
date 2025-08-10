@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:oraclelinux9
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: {password}
+      MYSQL_DATABASE: login
+    ports:
+      - "{external port}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
