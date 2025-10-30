@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"main/internal/db"
-	pkg "main/pkg/http"
+	server "main/internal/handler"
 	"net/http"
 	"os"
 
@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	err := godotenv.Load("../.env")
+	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
@@ -26,13 +26,13 @@ func main() {
 
 	jwtSecret := []byte(os.Getenv("JWT_SECRET"))
 
-	http.HandleFunc("/register", pkg.RegisterHandler(database))
+	http.HandleFunc("/register", server.RegisterHandler(database))
 
-	http.HandleFunc("/login", pkg.LoginHandler(database, jwtSecret))
+	http.HandleFunc("/login", server.LoginHandler(database, jwtSecret))
 
 	// http.ListenAndServeTLS(addr, certFile, keyFile string, handler Handler)
 
-	if err := http.ListenAndServe(":443", nil); err != nil {
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }

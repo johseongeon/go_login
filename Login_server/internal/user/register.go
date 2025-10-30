@@ -8,7 +8,8 @@ import (
 )
 
 func Register(db *sql.DB, user *User) error {
-	pwHash, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	// hash + salt
+	pwHash, err := bcrypt.GenerateFromPassword([]byte(user.Password+user.Username), bcrypt.DefaultCost)
 	if err != nil {
 		return fmt.Errorf("error hashing password: %w", err)
 	}

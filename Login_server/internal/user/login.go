@@ -22,7 +22,7 @@ func Login(db *sql.DB, user *User) (bool, error) {
 		return false, err
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(hashPw), []byte(user.Password))
+	err = bcrypt.CompareHashAndPassword([]byte(hashPw), []byte(user.Password+user.Username))
 	if err != nil {
 		log.Println("Password comparison error:", err)
 		return false, err
